@@ -1,11 +1,12 @@
 {
-    "name": "maps",
-    "main": "server.js",
-    "version": "0.0.1",
-    "dependencies": {
-        "express" : "4.5.1^",
-        "mongoose" : "3.8.0^",
-        "body-parser" : "1.4.2^",
-        "method-override" : "2.0.2^"
-    }
+  "name": "maps",
+  "main": "server.js",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "body-parser": "~1.4.2",
+    "bootstrap": "^3.3.7",
+    "express": "~4.5.1",
+    "method-override": "~2.0.2",
+    "mongoose": "~3.8.0"
+  }
 }
