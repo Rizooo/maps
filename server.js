@@ -36,7 +36,22 @@ app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(express.static(__dirname + '/public'));
 
 // routes ==================================================
-require('./app/routes')(app); // configure our routes
+// TODO: remove this
+// require('./app/routes')(app); // configure our routes
+var router = express.Router();
+var angular = express.Router();
+
+router.get('/', function(req, res) {
+    res.json({ message: 'Our api is actually working!'});
+});
+
+
+angular.get('*', function(req, res) {
+    res.sendfile('./public/views/index.html');
+});
+
+app.use('/api', router);
+app.use('*', angular);
 
 // start app ===============================================
 // startup our app at http://localhost:8080
