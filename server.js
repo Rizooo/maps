@@ -6,18 +6,37 @@ var express        = require('express');
 var app            = express();
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
+var mongodb        = require('mongodb');
+var MongoClient    = mongodb.MongoClient;
+var dbConfig       = require('./config/db');
+
+var CITIES_COLLECTIONS = "cities";
 
 // configuration ===========================================
 
 // config files
-var db = require('./config/db');
+// var db = require('./config/db');
+var db;
+
+MongoClient.connect(dbConfig.url, function(err, db) {
+    if (err) {
+        console.log('Unable to connect to MongoDB server, error: ' + err);
+    }
+    else {
+        console.log('Connection established to: ' + dbConfig.url);
+    }
+
+    // Do something
+
+    db.close();
+});
 
 // set our port
 var port = process.env.PORT || 8080;
 
 // connect to our mongoDB database
 // (uncomment after you enter in your own credentials in config/db.js)
-// mongoose.connect(db.url);
+
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json
@@ -41,8 +60,24 @@ app.use(express.static(__dirname + '/public'));
 var router = express.Router();
 var angular = express.Router();
 
-router.get('/', function(req, res) {
-    res.json({ message: 'Our api is actually working!'});
+// Replace this by using app/routes.js
+router.get('/cities', function(req, res) {
+        MongoClient.connect(dbConfig.url, function(err, db) {
+        if (err) {
+            console.log('Unable to connect to MongoDB server, error: ' + err);
+        }
+        else {
+            console.log('Connection established to: ' + dbConfig.url);
+        }
+
+        db.collection(CITIES_COLLECTIONS, function(err, collection) {
+            res.json({ message: 'Collection found: ' + collection});
+        });
+        // Do something
+        res.send
+
+        db.close();
+    });
 });
 
 
