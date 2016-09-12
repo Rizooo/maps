@@ -58,7 +58,7 @@ app.use(express.static(__dirname + '/public'));
 // TODO: remove this
 // require('./app/routes')(app); // configure our routes
 var router = express.Router();
-var angular = express.Router();
+// var angular = express.Router();
 
 // Replace this by using app/routes.js
 router.get('/cities', function(req, res) {
@@ -67,8 +67,8 @@ router.get('/cities', function(req, res) {
             console.log('Unable to connect to MongoDB server, error: ' + err);
         }
 
-        // var cities = [];
-        var cityObject = {};
+        var cities = [];
+        var index = 0;
         var find = function(db, callback){
             var cursor = db.collection(CITIES_COLLECTIONS).find();
             cursor.each(function(err, doc) {
@@ -76,7 +76,8 @@ router.get('/cities', function(req, res) {
                 // TOD: design a good way to present data
                 if (doc != null) {
                     // cities.push(doc);
-                    cityObject[doc.name] = doc;
+                    cities[index] = doc;
+                    index++;
                 }
                 else {
                     callback();
@@ -86,7 +87,7 @@ router.get('/cities', function(req, res) {
 
         find(db, () => {
             console.log('api/cities called');
-            res.json(cityObject);
+            res.json(cities);
         });
 
         db.close();
@@ -94,12 +95,12 @@ router.get('/cities', function(req, res) {
 });
 
 
-angular.get('*', function(req, res) {
+router.get('*', function(req, res) {
     res.sendfile('./public/views/index.html');
 });
 
 app.use('/api', router);
-app.use('*', angular);
+app.use('*', router);
 
 // start app ===============================================
 // startup our app at http://localhost:8080

@@ -7,34 +7,64 @@ db.cities.drop();
 //create the cities collection and add documents to it
 db.cities.insert({
     "name":"TRE",
-    "distances":{
-        "HEL": [ 178 ],
-        "POR": [ 111 ],
-        "LAH": [ 128 ]
+    "distances":[
+        {
+            "name":"HEL",
+            "distance": 178
+        },
+        {
+            "name":"POR",
+            "distance":111
+        },
+        {
+            "name":"LAH",
+            "distance":128
         }
+    ]
 });
 db.cities.insert({
     "name":"HEL",
-    "distances": {
-        "TRE": [ 178 ],
-        "POR": [ 244 ],
-        "LAH": [ 106]
+    "distances":[
+        {
+            "name":"TRE",
+            "distance":178
+        },
+        {
+            "name":"POR",
+            "distance":244
+        },
+        {
+            "name":"LAH",
+            "distance":106
         }
+    ]
 });
 db.cities.insert({
     "name":"POR",
-    "distances": {
-        "TRE": [ 111 ],
-        "HEL": [ 244 ]
+    "distances": [
+        {
+            "name":"TRE",
+            "distance":111
+        },
+        {
+            "name":"HEL",
+            "distance":244
         }
+    ],
 });
 db.cities.insert({
     "name":"LAH",
-    "distances": {
-        "TRE": [ 128 ],
-        "HEL": [ 106 ]
+    "distances": [
+        {
+            "name":"TRE",
+            "distance":128
+        },
+        {
+            "name":"HEL",
+            "distance":106
         }
-})
+    ]
+});
 
 //set a reference to all documents in the database
 allData = db.data.find();
