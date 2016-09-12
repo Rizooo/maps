@@ -1,18 +1,49 @@
-var Data = require('./models/data');
+var express        = require('express');
+var mongodb        = require('mongodb');
+var MongoClient    = mongodb.MongoClient;
+var dbConfig       = require('./../config/db');
+
+var CITIES_COLLECTIONS = "cities";
 
 module.exports = function(app) {
-    // sample api route
-    app.get('/api/data', function(req, res) {
-        Data.find(function(err, data) {
+
+    var router = express.Router();
+
+    router.get('/cities', function(req, res) {
+        MongoClient.connect(dbConfig.url, function(err, db) {
             if (err) {
-                res.send(err);
+                console.log('Unable to connect to MongoDB server, error: ' + err);
             }
 
-            res.json(data);
+            var cities = [];
+            var find = function(db, callback){
+                var cursor = db.collection(CITIES_COLLECTIONS).find();
+                cursor.each(function(err, doc) {
+                    // TODO: handle error
+                    // TODO: design a good way to present data
+                    if (doc != null) {
+                        cities.push(doc);
+                    }
+                    else {
+                        callback();
+                    }
+                });
+            };
+
+            find(db, () => {
+                console.log('api/cities called');
+                res.json(cities);
+            });
+
+            db.close();
         });
     });
 
-    app.get('*', function(req, res) {
+
+    router.get('*', function(req, res) {
         res.sendfile('./public/views/index.html');
     });
+
+    app.use('/api', router);
+    app.use('*', router)
 };
