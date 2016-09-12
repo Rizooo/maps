@@ -2,29 +2,35 @@
 var db = connect('127.0.0.1:27017/data'),
     data = null;
 
+// clear previous collection
+db.cities.drop();
 //create the cities collection and add documents to it
 db.cities.insert({
-    "TRE": {
+    "name":"TRE",
+    "distances":{
         "HEL": [ 178 ],
         "POR": [ 111 ],
         "LAH": [ 128 ]
         }
 });
 db.cities.insert({
-    "HEL": {
+    "name":"HEL",
+    "distances": {
         "TRE": [ 178 ],
         "POR": [ 244 ],
         "LAH": [ 106]
         }
 });
 db.cities.insert({
-    "POR": {
+    "name":"POR",
+    "distances": {
         "TRE": [ 111 ],
         "HEL": [ 244 ]
         }
 });
 db.cities.insert({
-    "LAH": {
+    "name":"LAH",
+    "distances": {
         "TRE": [ 128 ],
         "HEL": [ 106 ]
         }

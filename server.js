@@ -66,15 +66,28 @@ router.get('/cities', function(req, res) {
         if (err) {
             console.log('Unable to connect to MongoDB server, error: ' + err);
         }
-        else {
-            console.log('Connection established to: ' + dbConfig.url);
-        }
 
-        db.collection(CITIES_COLLECTIONS, function(err, collection) {
-            res.json({ message: 'Collection found: ' + collection});
+        // var cities = [];
+        var cityObject = {};
+        var find = function(db, callback){
+            var cursor = db.collection(CITIES_COLLECTIONS).find();
+            cursor.each(function(err, doc) {
+                // TODO: handle error
+                // TOD: design a good way to present data
+                if (doc != null) {
+                    // cities.push(doc);
+                    cityObject[doc.name] = doc;
+                }
+                else {
+                    callback();
+                }
+            });
+        };
+
+        find(db, () => {
+            console.log('api/cities called');
+            res.json(cityObject);
         });
-        // Do something
-        res.send
 
         db.close();
     });
