@@ -1,7 +1,5 @@
 1. git clone
-2. npm install
-3. bower install
-4. mkdir mongodb & mongod --dbpath ./mongodb
-5. mongo mongo.js
-6. node server.js
-7. open localhost:8080 in browser
+2. build.sh (or build.cmd when using windowz without bash shell)
+3. start mongo service: mongod --dbpath ./mongodb
+4. start node server: node server.js
+5. open localhost:8080 in browser
