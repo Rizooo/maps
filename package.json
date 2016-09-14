@@ -8,6 +8,7 @@
     "mongodb": "^2.2.9"
   },
   "devDependencies": {
-    "bower": "^1.7.9"
+    "bower": "^1.7.9",
+    "lodash": "^4.15.0"
   }
 }
