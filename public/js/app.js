@@ -37,7 +37,7 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
         };
 
         vm.isSelectionReady = function() {
-            return (vm.selectedDep !== null && vm.selectedDest !== null);
+            return (vm.selectedDep.map!== undefined && vm.selectedDest.map !== undefined);
         };
 
         $scope.$watch(angular.bind(vm, function () {
@@ -71,9 +71,6 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
 
             vm.map = vm.selectedDep.map;
             vm.message = '<h1>' + 'Route from ' + vm.selectedDep.name + ' to ' + vm.selectedDest.name + '</h1>';
-            console.log(vm.selectedDep);
-            console.log(vm.selectedDest);
-            /*
             var newLatLngs = [
                 {
                     lat: vm.selectedDep.map.lat,
@@ -84,7 +81,6 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
                     lng: vm.selectedDep.map.lng
                 }
             ];
-            */
 
             vm.paths = {
                 p1: {
@@ -105,9 +101,10 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
             .then(function(response) {
                 vm.cities = response.data;
                 vm.selectedDep = vm.cities[0];
+                vm.selectedDest = vm.cities[0].distances[0];
                 vm.setDistance();
             }, function(error) {
-                console.log('error retrieving data, error: ' + error);
+                console.err('error retrieving data, error: ' + error);
             });
 
         // define urls here
