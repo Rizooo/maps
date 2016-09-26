@@ -8,9 +8,9 @@ db.cities.drop();
 db.cities.insert({
     "name":"TRE",
     "map": {
-        "lat": 55,
-        "lng": -10,
-        "zoom": 4
+        "lat": 61,
+        "lng": 23,
+        "zoom": 8
     },
     "distances":[
         {
@@ -30,9 +30,9 @@ db.cities.insert({
 db.cities.insert({
     "name":"HEL",
     "map": {
-        "lat": 45,
-        "lng": -1,
-        "zoom": 4
+        "lat": 60,
+        "lng": 25,
+        "zoom": 8
     },
     "distances":[
         {
@@ -52,9 +52,9 @@ db.cities.insert({
 db.cities.insert({
     "name":"POR",
     "map": {
-        "lat": 30,
-        "lng": -1,
-        "zoom": 4
+        "lat": 61,
+        "lng": 21,
+        "zoom": 8
     },
     "distances": [
         {
@@ -70,9 +70,9 @@ db.cities.insert({
 db.cities.insert({
     "name":"LAH",
     "map": {
-        "lat": 75,
-        "lng": -10,
-        "zoom": 4
+        "lat": 61,
+        "lng": 26,
+        "zoom": 8
     },
     "distances": [
         {

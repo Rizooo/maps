@@ -4,9 +4,6 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
         .when('/', {
             templateUrl: './../views/map.html'
         })
-        .when('/old', {
-            templateUrl: './../views/old.html'
-        })
         .otherwise({
             redirectTo: '/'
         });
@@ -30,37 +27,76 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
         vm.paths = {};
 
         vm.setDistance = function() {
-            _.forEach(vm.selectedDep.distances, function(distance) {
-                if (distance.name === vm.selectedDest.name) {
-                    vm.distance = distance.distance;
-                };
-            });
+            if (vm.isSelectionReady()) {
+                _.forEach(vm.selectedDep.distances, function(distance) {
+                    if (distance.name === vm.selectedDest.name) {
+                        vm.distance = distance.distance;
+                    };
+                });
+            }
+        };
+
+        vm.isSelectionReady = function() {
+            return (vm.selectedDep !== null && vm.selectedDest !== null);
         };
 
         $scope.$watch(angular.bind(vm, function () {
             return vm.selectedDep;
         }), function (newVal) {
+            vm.updateViews();
+        });
+        $scope.$watch(angular.bind(vm, function () {
+            return vm.selectedDest;
+        }), function (newVal) {
+            _.forEach(vm.cities, function(city) {
+                if (city.name === vm.selectedDest.name) {
+                    vm.selectedDest.map = city.map;
+                }
+            });
 
-            vm.updateMap();
+            vm.updateViews();
+        });
+
+        vm.updateViews = function() {
+            if (vm.isSelectionReady()) {
+                vm.updateMap();
+            }
             angular.extend(vm, {
                 map: vm.map,
                 paths: vm.paths
             });
-        });
+        };
 
         vm.updateMap = function() {
 
             vm.map = vm.selectedDep.map;
+            vm.message = '<h1>' + 'Route from ' + vm.selectedDep.name + ' to ' + vm.selectedDest.name + '</h1>';
+            console.log(vm.selectedDep);
+            console.log(vm.selectedDest);
+            /*
+            var newLatLngs = [
+                {
+                    lat: vm.selectedDep.map.lat,
+                    lng: vm.selectedDep.map.lng
+                },
+                {
+                    lat: vm.selectedDest.map.lat,
+                    lng: vm.selectedDep.map.lng
+                }
+            ];
+            */
+
             vm.paths = {
                 p1: {
                     color: 'blue',
                     weight: 8,
+                    //latlngs: newLatLngs,
                     latlngs: [
                         { lat: 51.50, lng: -0.082 },
                         { lat: 48.83, lng: 2.37 },
                         { lat: 41.91, lng: 12.48 }
                     ],
-                    message: '<h1>' + 'Route from ' + vm.selectedDep + ' to ' + vm.selectedDest + '</h1>'
+                    message: vm.message
                 }
             };
         };
@@ -69,6 +105,7 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
             .then(function(response) {
                 vm.cities = response.data;
                 vm.selectedDep = vm.cities[0];
+                vm.setDistance();
             }, function(error) {
                 console.log('error retrieving data, error: ' + error);
             });
