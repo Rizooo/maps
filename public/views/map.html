@@ -1,1 +1,25 @@
-<leaflet class="basic-map"></leaflet>
+<div><!-- form -->
+    <div>
+        <label for="depart">Depart City</label>
+        <select ng-options="city.name for city in vm.cities"
+                ng-model="vm.selectedDep"
+                ng-click="vm.setDistance()">>
+            <option value="">- Please Choose -</option>
+        </select>
+    </div>
+    <div>
+        <label for="destination">Destination City</label>
+        <select ng-options="city.name for city in vm.selectedDep.distances"
+                ng-model="vm.selectedDest"
+                ng-click="vm.setDistance()">
+            <option value="">- Please Choose -</option>
+        </select>
+    </div>
+    <div ng-show="vm.distance">
+        <label for="distance">Distance:</label>
+        <span>
+            <p>{{vm.distance}} km</p>
+        </span>
+    </div>
+</div><!-- form ends -->
+<leaflet class="basic-map" lf-center="vm.map" paths="vm.paths"></leaflet>

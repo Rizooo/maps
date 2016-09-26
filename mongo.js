@@ -7,6 +7,11 @@ db.cities.drop();
 //create the cities collection and add documents to it
 db.cities.insert({
     "name":"TRE",
+    "map": {
+        "lat": 55,
+        "lng": -10,
+        "zoom": 4
+    },
     "distances":[
         {
             "name":"HEL",
@@ -24,6 +29,11 @@ db.cities.insert({
 });
 db.cities.insert({
     "name":"HEL",
+    "map": {
+        "lat": 45,
+        "lng": -1,
+        "zoom": 4
+    },
     "distances":[
         {
             "name":"TRE",
@@ -41,6 +51,11 @@ db.cities.insert({
 });
 db.cities.insert({
     "name":"POR",
+    "map": {
+        "lat": 30,
+        "lng": -1,
+        "zoom": 4
+    },
     "distances": [
         {
             "name":"TRE",
@@ -54,6 +69,11 @@ db.cities.insert({
 });
 db.cities.insert({
     "name":"LAH",
+    "map": {
+        "lat": 75,
+        "lng": -10,
+        "zoom": 4
+    },
     "distances": [
         {
             "name":"TRE",

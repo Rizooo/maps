@@ -26,6 +26,8 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
         vm.selectedDep = {};
         vm.selectedDest = {};
         vm.distance;
+        vm.map = {};
+        vm.paths = {};
 
         vm.setDistance = function() {
             _.forEach(vm.selectedDep.distances, function(distance) {
@@ -38,16 +40,40 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
         $scope.$watch(angular.bind(vm, function () {
             return vm.selectedDep;
         }), function (newVal) {
-            // Do something
+
+            vm.updateMap();
+            angular.extend(vm, {
+                map: vm.map,
+                paths: vm.paths
+            });
         });
+
+        vm.updateMap = function() {
+
+            vm.map = vm.selectedDep.map;
+            vm.paths = {
+                p1: {
+                    color: 'blue',
+                    weight: 8,
+                    latlngs: [
+                        { lat: 51.50, lng: -0.082 },
+                        { lat: 48.83, lng: 2.37 },
+                        { lat: 41.91, lng: 12.48 }
+                    ],
+                    message: '<h1>' + 'Route from ' + vm.selectedDep + ' to ' + vm.selectedDest + '</h1>'
+                }
+            };
+        };
 
         dataService.get()
             .then(function(response) {
                 vm.cities = response.data;
+                vm.selectedDep = vm.cities[0];
             }, function(error) {
                 console.log('error retrieving data, error: ' + error);
             });
 
         // define urls here
         vm.links = [];
+
     });
