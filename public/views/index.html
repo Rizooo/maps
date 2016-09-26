@@ -5,10 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>maps</title>
         <link rel="stylesheet" href="./libs/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.css" />
+        <link rel="stylesheet" href="./css/map.css">
         <script src="./libs/jquery/dist/jquery.js"></script>
         <script src="./libs/bootstrap/dist/js/bootstrap.js"></script>
         <script src="./libs/angular/angular.js"></script>
         <script src="./libs/angular-route/angular-route.js"></script>
+        <script src="https://unpkg.com/leaflet@1.0.0-rc.3/dist/leaflet.js"></script>
+        <script src="./libs/angular-simple-logger/dist/angular-simple-logger.js"></script>
+        <script src="./libs/ui-leaflet/dist/ui-leaflet.js"></script>
         <script src="./libs/lodash/dist/lodash.js"></script>
         <script src="./../js/app.js"></script>
         <script src="./../js/services/dataService.js"></script>
@@ -74,25 +79,6 @@
         <!-- ngRoute view -->
         <!-- /ngRoute view -->
         <div class="container">
-            <div>
-                <label for="depart">Depart City</label>
-                <select ng-options="city.name for city in vm.cities"
-                        ng-model="vm.selectedDep">
-                    <option value="">- Please Choose -</option>
-                </select>
-            </div>
-            <div>
-                <label for="destination">Destination City</label>
-                <select ng-options="city.name for city in vm.selectedDep.distances" ng-model="vm.selectedDest" ng-click="vm.setDistance()">
-                    <option value="">- Please Choose -</option>
-                </select>
-            </div>
-            <div ng-show="vm.distance">
-                <label for="distance">Distance:</label>
-                <span>
-                    <p>{{vm.distance}} km</p>
-                </span>
-            </div>
             <div ng-view></div>
         </div>
     </body>

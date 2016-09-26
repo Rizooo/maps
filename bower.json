@@ -7,6 +7,8 @@
     "animate.css": "latest",
     "angular": "latest",
     "angular-route": "latest",
-    "lodash": "^4.15.0"
+    "lodash": "^4.15.0",
+    "angular-simple-logger": "^0.1.7",
+    "ui-leaflet": "^1.0.2"
   }
 }

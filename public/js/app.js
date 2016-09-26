@@ -1,8 +1,11 @@
-angular.module('app', ['ngRoute'])
+angular.module('app', ['ngRoute', 'ui-leaflet'])
     .config(function($routeProvider, $locationProvider) {
         $routeProvider
         .when('/', {
-            template: ''
+            templateUrl: './../views/map.html'
+        })
+        .when('/old', {
+            templateUrl: './../views/old.html'
         })
         .otherwise({
             redirectTo: '/'
