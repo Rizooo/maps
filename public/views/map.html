@@ -8,7 +8,7 @@
     </div>
     <div>
         <label for="destination">Destination City</label>
-        <select ng-options="city.name for city in vm.cities"
+        <select ng-options="city.name for city in vm.cities | filter: { name: '!' + vm.selectedDep.name }"
                 ng-model="vm.selectedDest">
             <option value="">- Please Choose -</option>
         </select>
@@ -20,4 +20,4 @@
         </span>
     </div>
 </div><!-- form ends -->
-<leaflet class="basic-map" markers="vm.markers"></leaflet>
+<leaflet class="basic-map" center="vm.center" paths="vm.paths" markers="vm.markers"></leaflet>

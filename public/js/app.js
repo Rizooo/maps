@@ -24,6 +24,12 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
         vm.selectedDest = {};
         vm.distance;
         vm.markers = {};
+        vm.paths = {};
+        vm.center = {
+            lat: 61.60639637138628,
+            lng: 26.619873046875,
+            zoom: 6
+        };
 
         vm.setDistance = function() {
             if (vm.isSelectionReady()) {
@@ -51,12 +57,6 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
             vm.updateViews();
             vm.setDistance();
         });
-        $scope.$watch(angular.bind(vm, function () {
-            return vm.selectedDep.map;
-        }), function (newVal) {
-            console.log(vm.selectedDep.map)
-        });
-
 
         vm.updateViews = function() {
             if (vm.isSelectionReady()) {
@@ -81,19 +81,26 @@ angular.module('app', ['ngRoute', 'ui-leaflet'])
                     focus: true
                 };
 
+            var newPaths = {
+                p1: {
+                    latlngs: [
+                        { lat: newDep.lat, lng: newDep.lng},
+                        { lat: newDest.lat, lng: newDest.lng}
+                    ]
+                }
+            }
+
             var newMarkers = {
                 departCity: newDep,
                 destinationCity: newDest,
-
             };
             vm.markers = newMarkers;
+            vm.paths = newPaths;
         };
 
         dataService.get()
             .then(function(response) {
                 vm.cities = response.data;
-                vm.selectedDep = vm.cities[0];
-                vm.selectedDest = vm.cities[1];
                 vm.setDistance();
             }, function(error) {
                 console.err('error retrieving data, error: ' + error);
