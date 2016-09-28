@@ -2,16 +2,14 @@
     <div>
         <label for="depart">Depart City</label>
         <select ng-options="city.name for city in vm.cities"
-                ng-model="vm.selectedDep"
-                ng-click="vm.setDistance()">>
+                ng-model="vm.selectedDep">
             <option value="">- Please Choose -</option>
         </select>
     </div>
     <div>
         <label for="destination">Destination City</label>
-        <select ng-options="city.name for city in vm.selectedDep.distances"
-                ng-model="vm.selectedDest"
-                ng-click="vm.setDistance()">
+        <select ng-options="city.name for city in vm.cities"
+                ng-model="vm.selectedDest">
             <option value="">- Please Choose -</option>
         </select>
     </div>
@@ -22,4 +20,4 @@
         </span>
     </div>
 </div><!-- form ends -->
-<leaflet class="basic-map" lf-center="vm.map" paths="vm.paths"></leaflet>
+<leaflet class="basic-map" markers="vm.markers"></leaflet>
